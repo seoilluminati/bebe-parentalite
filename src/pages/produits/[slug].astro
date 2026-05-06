@@ -1,0 +1,17 @@
+---
+import ProductLayout from '../../layouts/ProductLayout.astro';
+
+export async function getStaticPaths() {
+  const productFiles = import.meta.glob('../../content/products/*.json', { eager: true });
+  return Object.values(productFiles)
+    .map((m: any) => m.default || m)
+    .filter(p => p.slug)
+    .map(product => ({
+      params: { slug: product.slug },
+      props: { product }
+    }));
+}
+
+const { product } = Astro.props;
+---
+<ProductLayout product={product} />

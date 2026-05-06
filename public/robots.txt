@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://bebe-au-naturel-guide.fr/sitemap-index.xml

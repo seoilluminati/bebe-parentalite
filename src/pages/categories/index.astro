@@ -1,0 +1,30 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import categories from '../../data/categories.json';
+---
+<BaseLayout title="Catégories" description="Toutes les catégories de produits">
+  <div class="container" style="padding: 2rem 0;">
+    <Breadcrumb items={[
+      { label: "Accueil", href: "/" },
+      { label: "Catégories", href: "" }
+    ]} />
+    <h1>Catégories</h1>
+    <div class="categories-grid">
+      {categories.map((cat: any) => (
+        <a href={`/categories/${cat.slug}/`} class="category-card product-card">
+          <h3>{cat.name}</h3>
+          <p>{cat.description}</p>
+        </a>
+      ))}
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  h1 { font-size: 2rem; margin-bottom: 1.5rem; }
+  .categories-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1rem; }
+  .category-card { padding: 1.5rem; text-decoration: none; color: inherit; }
+  .category-card h3 { margin-bottom: 0.5rem; }
+  .category-card p { font-size: 0.9rem; opacity: 0.75; }
+</style>

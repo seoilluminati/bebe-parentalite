@@ -1,0 +1,89 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ProductCard from '../components/ProductCard.astro';
+import BlogCard from '../components/BlogCard.astro';
+
+// Load products
+const productFiles = import.meta.glob('../content/products/*.json', { eager: true });
+const allProducts = Object.values(productFiles).map((m: any) => m.default || m);
+const featuredProducts = allProducts
+  .filter(p => p.note && p.slug)
+  .sort((a, b) => (b.note || 0) - (a.note || 0))
+  .slice(0, 6);
+
+// Load blog posts metadata
+const blogFiles = import.meta.glob('../content/blog/*.md', { as: 'raw', eager: true });
+const blogPosts = Object.entries(blogFiles).map(([path, raw]) => {
+  const content = raw as string;
+  const fmMatch = content.match(/^---\n([\s\S]*?)\n---/);
+  const fm: any = {};
+  if (fmMatch) {
+    fmMatch[1].split('\n').forEach(line => {
+      const [key, ...vals] = line.split(':');
+      if (key && vals.length) fm[key.trim().replace(/"/g, '')] = vals.join(':').trim().replace(/^"|"$/g, '');
+    });
+  }
+  return fm;
+}).filter(p => p.title && p.slug).slice(0, 3);
+---
+<BaseLayout title="Bébé au Naturel Guide" description="">
+  <section class="hero">
+    <div class="container">
+      <h1>Bébé au Naturel Guide</h1>
+      <p class="hero-tagline">Le guide expert pour les jeunes parents - DME, sommeil, portage & bien plus</p>
+      <div class="hero-cta">
+        <a href="/produits/" class="btn-primary">Découvrir nos tests</a>
+        <a href="/blog/" class="btn-secondary">Lire le blog</a>
+      </div>
+    </div>
+  </section>
+  
+  <section class="section">
+    <div class="container">
+      <h2>⭐ Produits les mieux notés</h2>
+      <div class="grid-products">
+        {featuredProducts.map(product => (
+          <ProductCard product={product} />
+        ))}
+      </div>
+      <div class="section-cta">
+        <a href="/produits/">Voir tous les produits →</a>
+      </div>
+    </div>
+  </section>
+  
+  {blogPosts.length > 0 && (
+    <section class="section">
+      <div class="container">
+        <h2>📝 Derniers articles</h2>
+        <div class="grid-blog">
+          {blogPosts.map(post => (
+            <BlogCard post={post} />
+          ))}
+        </div>
+        <div class="section-cta">
+          <a href="/blog/">Voir tous les articles →</a>
+        </div>
+      </div>
+    </section>
+  )}
+</BaseLayout>
+
+<style>
+  .hero { padding: 4rem 0 3rem; text-align: center; }
+  .hero h1 { font-size: 2.8rem; font-weight: 800; margin-bottom: 0.75rem; }
+  .hero-tagline { font-size: 1.2rem; opacity: 0.8; max-width: 600px; margin: 0 auto 2rem; }
+  .hero-cta { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+  .btn-primary, .btn-secondary { padding: 0.75rem 2rem; border-radius: var(--radius-sm); font-weight: 600; font-size: 1rem; }
+  .btn-primary { background: currentColor; }
+  .btn-secondary { border: 2px solid currentColor; }
+  .section { padding: 3rem 0; }
+  .section h2 { font-size: 1.6rem; margin-bottom: 1.5rem; }
+  .section-cta { text-align: center; margin-top: 2rem; }
+  .section-cta a { font-weight: 600; }
+  
+  @media (max-width: 768px) {
+    .hero h1 { font-size: 2rem; }
+    .hero { padding: 2.5rem 0 2rem; }
+  }
+</style>

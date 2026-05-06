@@ -1,0 +1,21 @@
+---
+export interface Props {
+  href: string;
+  label?: string;
+  size?: 'normal' | 'large' | 'full';
+}
+const { href, label = "Voir sur Amazon", size = "normal" } = Astro.props;
+const tag = "materielgamer-21";
+// Ensure affiliate tag is in the URL
+const finalHref = href.includes('tag=') ? href : (href.includes('?') ? `${href}&tag=${tag}` : `${href}?tag=${tag}`);
+
+const sizeClass = size === 'large' ? 'btn-lg' : size === 'full' ? 'btn-full' : '';
+---
+<a href={finalHref} class={`btn-amazon ${sizeClass}`} target="_blank" rel="nofollow noopener sponsored" title={label}>
+  🛒 {label}
+</a>
+
+<style>
+  .btn-lg { font-size: 1.1rem; padding: 1rem 2rem; }
+  .btn-full { width: 100%; font-size: 1rem; padding: 0.85rem; }
+</style>

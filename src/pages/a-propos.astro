@@ -1,0 +1,29 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
+---
+<BaseLayout title="À propos" description="En savoir plus sur Bébé au Naturel Guide">
+  <div class="container" style="padding: 2rem 0; max-width: 780px;">
+    <Breadcrumb items={[
+      { label: "Accueil", href: "/" },
+      { label: "À propos", href: "" }
+    ]} />
+    <h1>À propos de Bébé au Naturel Guide</h1>
+    <p></p>
+    
+    <h2>Notre méthodologie</h2>
+    <p>Chaque produit présenté sur ce site fait l'objet d'une analyse approfondie. Nous testons, comparons et notons pour vous aider à faire le meilleur choix.</p>
+    
+    <h2>Transparence</h2>
+    <p>Ce site participe au Programme Partenaires Amazon EU. Lorsque vous cliquez sur un lien Amazon et effectuez un achat, nous percevons une commission, sans aucun surcoût pour vous. Cela nous permet de financer nos tests indépendants.</p>
+    
+    <h2>Contact</h2>
+    <p>Une question ? Contactez-nous via notre formulaire de contact.</p>
+  </div>
+</BaseLayout>
+
+<style>
+  h1 { font-size: 2rem; margin-bottom: 1rem; }
+  h2 { font-size: 1.4rem; margin: 2rem 0 0.75rem; }
+  p { line-height: 1.8; margin-bottom: 1rem; }
+</style>

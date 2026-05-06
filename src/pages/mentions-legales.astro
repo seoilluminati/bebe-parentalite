@@ -1,0 +1,35 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
+---
+<BaseLayout title="Mentions légales" description="Mentions légales de Bébé au Naturel Guide">
+  <div class="container" style="padding: 2rem 0; max-width: 780px;">
+    <Breadcrumb items={[
+      { label: "Accueil", href: "/" },
+      { label: "Mentions légales", href: "" }
+    ]} />
+    <h1>Mentions Légales</h1>
+    
+    <h2>Éditeur du site</h2>
+    <p>Bébé au Naturel Guide<br/>Site web : bebe-au-naturel-guide.fr</p>
+    
+    <h2>Hébergement</h2>
+    <p>Cloudflare Pages — Cloudflare, Inc., 101 Townsend St, San Francisco, CA 94107, USA</p>
+    
+    <h2>Propriété intellectuelle</h2>
+    <p>L'ensemble du contenu de ce site (textes, images, logos) est protégé par le droit d'auteur. Toute reproduction sans autorisation est interdite.</p>
+    
+    <h2>Liens affiliés</h2>
+    <p>Ce site participe au Programme Partenaires Amazon EU, un programme d'affiliation conçu pour permettre à des sites de percevoir une rémunération grâce à la création de liens vers Amazon.fr. Le tag d'affiliation utilisé est <code>materielgamer-21</code>.</p>
+    
+    <h2>Données personnelles</h2>
+    <p>Ce site ne collecte aucune donnée personnelle directement. Des cookies tiers (Amazon, analytics) peuvent être déposés. Vous pouvez les refuser via les paramètres de votre navigateur.</p>
+  </div>
+</BaseLayout>
+
+<style>
+  h1 { font-size: 2rem; margin-bottom: 1rem; }
+  h2 { font-size: 1.3rem; margin: 1.5rem 0 0.5rem; }
+  p { line-height: 1.7; margin-bottom: 0.75rem; }
+  code { padding: 0.15rem 0.4rem; border-radius: 4px; font-size: 0.9rem; }
+</style>

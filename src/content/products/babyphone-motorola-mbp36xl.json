@@ -1,0 +1,15 @@
+{
+  "nom_du_produit": "Babyphone Motorola MBP36XL",
+  "slug": "babyphone-motorola-mbp36xl",
+  "category": "babyphone-video",
+  "brand": "Motorola",
+  "introduction": "Babyphone vidéo haute résolution avec écran 5 pouces, vision nocturne infrarouge et portée 300m sans wifi",
+  "avantages": "<ul><li>Écran 5\" haute résolution très lisible</li><li>Portée 300m sans dépendre du WiFi</li><li>Vision nocturne infrarouge performante</li><li>Deux caméras incluses pour surveillance multi-pièces</li><li>Batterie longue durée jusqu'à 24h</li></ul>",
+  "inconvenients": "<ul><li>Prix d'entrée élevé pour un babyphone</li><li>Écran peut être lent lors de changements rapides de luminosité</li><li>Pas d'application mobile (limitation volontaire pour la sécurité)</li></ul>",
+  "verdict": "Le MBP36XL est le choix idéal pour les parents qui privilégient l'indépendance vis-à-vis d'internet et la robustesse. Bien que plus cher, son écran généreusement dimensionné et sa portée impressive en font un investissement durable pour plusieurs années de tranquillité d'esprit.",
+  "performances": "{'ecran': '5 pouces couleur', 'resolution': 'VGA', 'portee': '300 mètres', 'vision_nocturne': 'Infrarouge', 'temperature_bebe': 'Oui', 'zoom': 'Numérique 4x', 'batterie': \"Jusqu'à 24h en veille\", 'nombre_cameras': '2'}",
+  "note": 9.0,
+  "amazon_link_short": "https://www.amazon.fr/dp/B08VQZZ5P7?tag=materielgamer-21",
+  "seo_title": "Babyphone Motorola MBP36XL - Test & Avis 2026",
+  "meta_description": "Babyphone vidéo haute résolution avec écran 5 pouces, vision nocturne infrarouge et portée 300m sans wifi"
+}

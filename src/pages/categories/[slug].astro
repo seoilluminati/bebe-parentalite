@@ -1,0 +1,48 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ProductCard from '../../components/ProductCard.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import categories from '../../data/categories.json';
+
+export async function getStaticPaths() {
+  const cats = await import('../../data/categories.json');
+  const catList = cats.default || cats;
+  
+  const productFiles = import.meta.glob('../../content/products/*.json', { eager: true });
+  const allProducts = Object.values(productFiles).map((m: any) => m.default || m);
+  
+  return catList.map((cat: any) => ({
+    params: { slug: cat.slug },
+    props: {
+      category: cat,
+      products: allProducts.filter(p => p.category === cat.slug || p.subcategory === cat.slug)
+    }
+  }));
+}
+
+const { category, products } = Astro.props;
+const sorted = products.sort((a: any, b: any) => (b.note || 0) - (a.note || 0));
+---
+<BaseLayout title={category.name} description={category.description || ""}>
+  <div class="container" style="padding: 2rem 0;">
+    <Breadcrumb items={[
+      { label: "Accueil", href: "/" },
+      { label: "Catégories", href: "/categories/" },
+      { label: category.name, href: "" }
+    ]} />
+    <h1>{category.name}</h1>
+    {category.description && <p class="cat-desc">{category.description}</p>}
+    <p class="count">{sorted.length} produit{sorted.length > 1 ? 's' : ''} dans cette catégorie</p>
+    <div class="grid-products">
+      {sorted.map((product: any) => (
+        <ProductCard product={product} />
+      ))}
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  h1 { font-size: 2rem; margin-bottom: 0.5rem; }
+  .cat-desc { opacity: 0.8; margin-bottom: 0.5rem; max-width: 700px; }
+  .count { opacity: 0.6; font-size: 0.9rem; margin-bottom: 2rem; }
+</style>

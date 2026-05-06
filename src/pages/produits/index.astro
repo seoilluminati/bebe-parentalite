@@ -1,0 +1,31 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ProductCard from '../../components/ProductCard.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+
+const productFiles = import.meta.glob('../../content/products/*.json', { eager: true });
+const allProducts = Object.values(productFiles)
+  .map((m: any) => m.default || m)
+  .filter(p => p.slug && p.nom_du_produit)
+  .sort((a, b) => (b.note || 0) - (a.note || 0));
+---
+<BaseLayout title="Tous nos tests produits" description="Découvrez tous nos tests et avis détaillés.">
+  <div class="container" style="padding: 2rem 0;">
+    <Breadcrumb items={[
+      { label: "Accueil", href: "/" },
+      { label: "Produits", href: "" }
+    ]} />
+    <h1>Tous nos tests produits</h1>
+    <p class="page-intro">{allProducts.length} produits testés par notre équipe</p>
+    <div class="grid-products">
+      {allProducts.map(product => (
+        <ProductCard product={product} />
+      ))}
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  h1 { font-size: 2rem; margin-bottom: 0.5rem; }
+  .page-intro { opacity: 0.7; margin-bottom: 2rem; }
+</style>

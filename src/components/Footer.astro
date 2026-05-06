@@ -1,0 +1,50 @@
+---
+const year = new Date().getFullYear();
+---
+<footer>
+  <div class="container footer-content">
+    <div class="footer-grid">
+      <div class="footer-col">
+        <h3>Bébé au Naturel Guide</h3>
+        <p>Le guide expert pour les jeunes parents - DME, sommeil, portage & bien plus</p>
+      </div>
+      <div class="footer-col">
+        <h4>Navigation</h4>
+        <ul>
+          <li><a href="/">Accueil</a></li>
+          <li><a href="/produits/">Produits</a></li>
+          <li><a href="/blog/">Blog</a></li>
+          <li><a href="/a-propos/">À propos</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Légal</h4>
+        <ul>
+          <li><a href="/mentions-legales/">Mentions légales</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="affiliate-notice">
+        Ce site participe au Programme Partenaires Amazon EU. En tant que partenaire Amazon, nous percevons une rémunération sur les achats remplissant les conditions requises.
+      </p>
+      <p>© {year} Bébé au Naturel Guide. Tous droits réservés.</p>
+    </div>
+  </div>
+</footer>
+
+<style>
+  footer { padding: 3rem 0 1.5rem; margin-top: 4rem; }
+  .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 2rem; margin-bottom: 2rem; }
+  .footer-col ul { list-style: none; }
+  .footer-col li { margin: 0.4rem 0; }
+  .footer-col a { font-size: 0.9rem; }
+  .footer-col h3 { font-size: 1.2rem; margin-bottom: 0.5rem; }
+  .footer-col h4 { font-size: 1rem; margin-bottom: 0.5rem; }
+  .footer-bottom { border-top: 1px solid rgba(128,128,128,0.2); padding-top: 1.5rem; font-size: 0.8rem; opacity: 0.7; text-align: center; }
+  .affiliate-notice { margin-bottom: 0.5rem; font-style: italic; }
+  
+  @media (max-width: 768px) {
+    .footer-grid { grid-template-columns: 1fr; gap: 1.5rem; }
+  }
+</style>

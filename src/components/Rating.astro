@@ -1,0 +1,38 @@
+---
+export interface Props {
+  note: number;
+  max?: number;
+}
+const { note, max = 10 } = Astro.props;
+const percent = (note / max) * 100;
+const stars5 = Math.round((note / max) * 5 * 2) / 2;
+const fullStars = Math.floor(stars5);
+const hasHalf = stars5 % 1 !== 0;
+const emptyStars = 5 - fullStars - (hasHalf ? 1 : 0);
+const color = note >= 8 ? '#4CAF50' : note >= 6 ? '#FF9800' : '#F44336';
+---
+<div class="rating-block">
+  <div class="stars-row">
+    <span class="note-big" style={`color: ${color}`}>{note}</span>
+    <span class="note-max">/{max}</span>
+    <div class="stars">
+      {Array.from({length: fullStars}).map(() => <span class="star star-full">★</span>)}
+      {hasHalf && <span class="star star-half">★</span>}
+      {Array.from({length: emptyStars}).map(() => <span class="star star-empty">☆</span>)}
+    </div>
+  </div>
+  <div class="progress-bar">
+    <div class="fill" style={`width: ${percent}%; background: ${color};`}></div>
+  </div>
+</div>
+
+<style>
+  .rating-block { margin: 0.5rem 0; }
+  .stars-row { display: flex; align-items: baseline; gap: 0.25rem; }
+  .note-big { font-size: 1.8rem; font-weight: 800; }
+  .note-max { font-size: 1rem; opacity: 0.5; }
+  .stars { margin-left: 0.5rem; font-size: 1.1rem; }
+  .star-full, .star-half { color: #FFC107; }
+  .star-empty { color: rgba(128,128,128,0.3); }
+  .progress-bar { margin-top: 0.5rem; height: 8px; }
+</style>

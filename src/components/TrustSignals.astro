@@ -1,0 +1,19 @@
+---
+const now = new Date();
+const dateStr = now.toLocaleDateString('fr-FR', { year: 'numeric', month: 'long', day: 'numeric' });
+---
+<div class="trust-signals">
+  <span>🔄 Mis à jour le {dateStr}</span>
+  <span>✅ Vérifié par notre équipe</span>
+</div>
+
+<style>
+  .trust-signals {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    font-size: 0.8rem;
+    opacity: 0.6;
+    margin: 0.75rem 0;
+  }
+</style>

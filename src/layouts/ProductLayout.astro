@@ -1,0 +1,179 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
+import Rating from '../components/Rating.astro';
+import Badge from '../components/Badge.astro';
+import AmazonButton from '../components/AmazonButton.astro';
+import TrustSignals from '../components/TrustSignals.astro';
+
+export interface Props {
+  product: any;
+}
+const { product } = Astro.props;
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Product",
+  "name": product.nom_du_produit,
+  "description": product.meta_description || product.introduction?.substring(0, 160),
+  "brand": { "@type": "Brand", "name": product.brand || "" },
+  "review": {
+    "@type": "Review",
+    "reviewRating": {
+      "@type": "Rating",
+      "ratingValue": product.note,
+      "bestRating": "10"
+    },
+    "author": { "@type": "Organization", "name": "Bébé au Naturel Guide" }
+  }
+};
+---
+<BaseLayout
+  title={product.seo_title || product.nom_du_produit}
+  description={product.meta_description || ""}
+  jsonLd={jsonLd}
+>
+  <article class="container product-page">
+    <Breadcrumb items={[
+      { label: "Accueil", href: "/" },
+      { label: "Produits", href: "/produits/" },
+      { label: product.nom_du_produit, href: "" }
+    ]} />
+    
+    <div class="affiliate-disclosure">
+      ℹ️ Cet article contient des liens affiliés. Si vous achetez via ces liens, nous recevons une commission sans surcoût pour vous.
+    </div>
+    
+    <header class="product-header">
+      <div class="product-header__top">
+        {product.badge && <Badge type={product.badge} />}
+        <h1>{product.nom_du_produit}</h1>
+        {product.brand && <p class="product-brand">par {product.brand}</p>}
+      </div>
+      
+      <div class="product-header__rating">
+        <Rating note={product.note} />
+      </div>
+    </header>
+    
+    <TrustSignals />
+    
+    <section class="product-intro">
+      <p>{product.introduction}</p>
+    </section>
+    
+    <div class="product-cta-block">
+      <AmazonButton href={product.amazon_link_short} label="Voir le prix sur Amazon" />
+    </div>
+    
+    {product.avantages && (
+      <section class="product-section">
+        <h2>✅ Avantages</h2>
+        <div class="pros-list" set:html={product.avantages} />
+      </section>
+    )}
+    
+    {product.inconvenients && (
+      <section class="product-section">
+        <h2>❌ Inconvénients</h2>
+        <div class="cons-list" set:html={product.inconvenients} />
+      </section>
+    )}
+    
+    {product.design_et_ergonomie && (
+      <section class="product-section">
+        <h2>🎨 Design & Ergonomie</h2>
+        <p>{product.design_et_ergonomie}</p>
+      </section>
+    )}
+    
+    {product.fonctionnalites && (
+      <section class="product-section">
+        <h2>⚙️ Fonctionnalités</h2>
+        <p>{product.fonctionnalites}</p>
+      </section>
+    )}
+    
+    {product.performances && (
+      <section class="product-section">
+        <h2>📊 Performances</h2>
+        <p>{product.performances}</p>
+      </section>
+    )}
+    
+    {product.verdict && (
+      <section class="product-section product-verdict">
+        <h2>🏆 Notre Verdict</h2>
+        <p>{product.verdict}</p>
+      </section>
+    )}
+    
+    {product.erreur_classique && (
+      <section class="product-section">
+        <h2>⚠️ Erreur Classique à Éviter</h2>
+        <p>{product.erreur_classique}</p>
+      </section>
+    )}
+    
+    {product.ce_que_disent_les_acheteurs && product.ce_que_disent_les_acheteurs.length > 0 && (
+      <section class="product-section">
+        <h2>💬 Ce que disent les acheteurs</h2>
+        <div class="buyer-reviews">
+          {product.ce_que_disent_les_acheteurs.map((r: any) => (
+            <blockquote class={`review review--${r.sentiment}`}>
+              <p>"{r.verbatim}"</p>
+              <cite>— {r.source}</cite>
+            </blockquote>
+          ))}
+        </div>
+      </section>
+    )}
+    
+    {product.alternatives_directes && product.alternatives_directes.length > 0 && (
+      <section class="product-section">
+        <h2>🔄 Alternatives</h2>
+        <div class="alternatives-grid">
+          {product.alternatives_directes.map((alt: any) => (
+            <div class="alternative-card">
+              <h3>{alt.nom}</h3>
+              <p class="alt-price">{alt.prix}</p>
+              <p>{alt.avantage}</p>
+              <p class="alt-verdict"><strong>{alt.verdict}</strong></p>
+            </div>
+          ))}
+        </div>
+      </section>
+    )}
+    
+    <div class="product-cta-block product-cta-bottom">
+      <AmazonButton href={product.amazon_link_short} label="Voir sur Amazon" size="large" />
+    </div>
+  </article>
+  
+  <div class="sticky-cta">
+    <AmazonButton href={product.amazon_link_short} label="Voir sur Amazon" size="full" />
+  </div>
+</BaseLayout>
+
+<style>
+  .product-page { padding: 2rem 0 4rem; max-width: 800px; }
+  .product-header { margin: 1.5rem 0; }
+  .product-header h1 { font-size: 2rem; line-height: 1.2; margin: 0.5rem 0; }
+  .product-brand { opacity: 0.7; font-size: 0.9rem; }
+  .product-header__rating { margin: 1rem 0; }
+  .product-intro { font-size: 1.05rem; line-height: 1.8; margin: 1.5rem 0; }
+  .product-section { margin: 2rem 0; }
+  .product-section h2 { font-size: 1.4rem; margin-bottom: 1rem; }
+  .product-cta-block { margin: 2rem 0; text-align: center; }
+  .product-verdict { padding: 1.5rem; border-radius: var(--radius-md); border: 2px solid currentColor; }
+  .buyer-reviews blockquote { padding: 1rem 1.25rem; margin: 0.75rem 0; border-radius: var(--radius-sm); font-style: italic; }
+  .buyer-reviews cite { font-style: normal; font-size: 0.85rem; opacity: 0.7; }
+  .alternatives-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; }
+  .alternative-card { padding: 1.25rem; border-radius: var(--radius-sm); border: 1px solid rgba(128,128,128,0.2); }
+  .alt-price { font-weight: 700; margin: 0.25rem 0; }
+  
+  @media (max-width: 768px) {
+    .product-header h1 { font-size: 1.5rem; }
+    .product-page { padding: 1rem 0 5rem; }
+  }
+</style>
