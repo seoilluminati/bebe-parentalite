@@ -1,34 +1,23 @@
 ---
 export interface Props {
-  products: any[];
+  headers: string[];
+  rows: { cells: string[]; highlight?: boolean; }[];
 }
-const { products } = Astro.props;
+const { headers, rows } = Astro.props;
 ---
-<div class="table-responsive">
+<div class="table-wrapper fade-in">
   <table class="comparison-table">
     <thead>
       <tr>
-        <th>Produit</th>
-        <th>Note</th>
-        <th>Marque</th>
-        <th>Action</th>
+        {headers.map((h) => <th>{h}</th>)}
       </tr>
     </thead>
     <tbody>
-      {products.map((p) => (
-        <tr>
-          <td><a href={`/produits/${p.slug}/`}>{p.nom_du_produit}</a></td>
-          <td><strong>{p.note}/10</strong></td>
-          <td>{p.brand || '-'}</td>
-          <td><a href={p.amazon_link_short} target="_blank" rel="nofollow noopener sponsored" class="btn-amazon btn-sm">Amazon</a></td>
+      {rows.map((row) => (
+        <tr class={row.highlight ? 'highlight' : ''}>
+          {row.cells.map((cell) => <td set:html={cell} />)}
         </tr>
       ))}
     </tbody>
   </table>
 </div>
-
-<style>
-  .table-responsive { overflow-x: auto; margin: 1.5rem 0; }
-  .comparison-table { min-width: 600px; }
-  .btn-sm { padding: 0.35rem 0.75rem; font-size: 0.8rem; }
-</style>

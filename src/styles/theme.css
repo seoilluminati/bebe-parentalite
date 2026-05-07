@@ -1,80 +1,14 @@
-/* Bébé au Naturel Guide — Light Theme Overrides */
-body {
-  background-color: #fafafa;
-  color: #333;
+/* bebe-parentalite — Theme Override */
+:root {
+  --accent: #E91E63;
+  --accent-hover: #F06292;
+  --accent-dark: #C2185B;
+  --accent-a10: rgba(233, 30, 99, 0.10);
+  --accent-a20: rgba(233, 30, 99, 0.20);
+  --accent-a40: rgba(233, 30, 99, 0.40);
+
+  --bg: #0f1117;
+  --bg-card: #161922;
+  --bg-card-hover: #1c2030;
+  --bg-elevated: #1e2233;
 }
-
-a { color: #E91E63; }
-a:hover { color: #C2185B; }
-
-.site-header {
-  background: #fff;
-  border-bottom: 2px solid #E91E63;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-}
-
-.site-header a { color: #333; }
-.site-header a:hover { color: #E91E63; }
-
-.product-card {
-  background: #fff;
-  border: 1px solid #e0e0e0;
-  border-radius: var(--radius-md);
-  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
-  transition: var(--transition);
-}
-.product-card:hover {
-  box-shadow: 0 8px 24px rgba(0,0,0,0.12);
-  transform: translateY(-2px);
-}
-
-.blog-card {
-  background: #fff;
-  border: 1px solid #e0e0e0;
-  border-radius: var(--radius-md);
-}
-
-.btn-amazon {
-  background: linear-gradient(135deg, #FF9800, #F57C00);
-  color: #fff;
-  padding: 0.75rem 1.5rem;
-  border-radius: var(--radius-sm);
-  font-weight: 700;
-  display: inline-block;
-  text-align: center;
-  border: none;
-  cursor: pointer;
-}
-.btn-amazon:hover {
-  background: linear-gradient(135deg, #F57C00, #E65100);
-  transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(255,152,0,0.4);
-}
-
-.progress-bar { background: #e0e0e0; }
-.progress-bar .fill { background: linear-gradient(90deg, #E91E63, #FF5252); }
-
-.badge-choix { background: #E91E63; color: #fff; }
-.badge-budget { background: #4CAF50; color: #fff; }
-.badge-premium { background: #9C27B0; color: #fff; }
-
-footer {
-  background: #333;
-  color: #e0e0e0;
-}
-footer a { color: #FF9800; }
-
-.sticky-cta {
-  background: rgba(255,255,255,0.95);
-  backdrop-filter: blur(10px);
-  border-top: 2px solid #E91E63;
-}
-
-.affiliate-disclosure {
-  background: #FFF3E0;
-  border-left: 3px solid #FF9800;
-  color: #5D4037;
-}
-
-.breadcrumb { color: #666; }
-.breadcrumb a { color: #E91E63; }

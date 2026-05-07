@@ -3,19 +3,17 @@ export interface Props {
   href: string;
   label?: string;
   size?: 'normal' | 'large' | 'full';
+  pulse?: boolean;
 }
-const { href, label = "Voir sur Amazon", size = "normal" } = Astro.props;
+const { href, label = "Voir sur Amazon", size = "normal", pulse = false } = Astro.props;
 const tag = "materielgamer-21";
-// Ensure affiliate tag is in the URL
 const finalHref = href.includes('tag=') ? href : (href.includes('?') ? `${href}&tag=${tag}` : `${href}?tag=${tag}`);
-
 const sizeClass = size === 'large' ? 'btn-lg' : size === 'full' ? 'btn-full' : '';
+const pulseClass = pulse ? 'pulse' : '';
 ---
-<a href={finalHref} class={`btn-amazon ${sizeClass}`} target="_blank" rel="nofollow noopener sponsored" title={label}>
-  🛒 {label}
-</a>
-
-<style>
-  .btn-lg { font-size: 1.1rem; padding: 1rem 2rem; }
-  .btn-full { width: 100%; font-size: 1rem; padding: 0.85rem; }
-</style>
+<div class="amazon-cta-wrapper">
+  <a href={finalHref} class={`btn-amazon ${sizeClass} ${pulseClass}`} target="_blank" rel="nofollow noopener sponsored" title={label}>
+    🛒 {label} →
+  </a>
+  <span class="urgency-text">🔥 Prix vérifié aujourd'hui</span>
+</div>

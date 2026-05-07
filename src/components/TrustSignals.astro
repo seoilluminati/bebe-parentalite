@@ -1,19 +1,14 @@
 ---
-const now = new Date();
-const dateStr = now.toLocaleDateString('fr-FR', { year: 'numeric', month: 'long', day: 'numeric' });
+export interface Props {
+  updatedDate?: string;
+  productsCount?: number;
+}
+const { updatedDate, productsCount } = Astro.props;
+const displayDate = updatedDate ? new Date(updatedDate).toLocaleDateString('fr-FR', { year: 'numeric', month: 'long' }) : new Date().toLocaleDateString('fr-FR', { year: 'numeric', month: 'long' });
 ---
 <div class="trust-signals">
-  <span>🔄 Mis à jour le {dateStr}</span>
-  <span>✅ Vérifié par notre équipe</span>
+  <span class="trust-signal"><span class="check">✓</span> Tests indépendants</span>
+  <span class="trust-signal"><span class="check">✓</span> Mis à jour {displayDate}</span>
+  {productsCount && <span class="trust-signal"><span class="check">✓</span> {productsCount}+ produits testés</span>}
+  <span class="trust-signal"><span class="check">✓</span> Avis vérifiés</span>
 </div>
-
-<style>
-  .trust-signals {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1rem;
-    font-size: 0.8rem;
-    opacity: 0.6;
-    margin: 0.75rem 0;
-  }
-</style>

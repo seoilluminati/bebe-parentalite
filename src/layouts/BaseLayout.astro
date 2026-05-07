@@ -21,6 +21,8 @@ import '../styles/theme.css';
 <html lang="fr">
 <head>
   <meta charset="UTF-8" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>{pageTitle}</title>
   <meta name="description" content={description} />
@@ -51,5 +53,28 @@ import '../styles/theme.css';
     <slot />
   </main>
   <Footer />
+<script>
+  // Scroll fade-in animations
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("visible");
+      }
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll(".fade-in").forEach(el => observer.observe(el));
+
+  // Scroll-to-top button
+  const scrollBtn = document.getElementById("scroll-top");
+  if (scrollBtn) {
+    window.addEventListener("scroll", () => {
+      scrollBtn.classList.toggle("visible", window.scrollY > 400);
+    });
+    scrollBtn.addEventListener("click", () => {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+  }
+</script>
+<button id="scroll-top" class="scroll-top" aria-label="Retour en haut">↑</button>
 </body>
 </html>

@@ -1,14 +1,16 @@
 ---
 export interface Props {
-  type: string;
+  type: 'choix' | 'premium' | 'budget' | 'new' | 'bestseller';
+  label?: string;
 }
-const { type } = Astro.props;
+const { type, label } = Astro.props;
 const labels: Record<string, string> = {
-  choix: "Choix Rédaction",
-  budget: "Budget",
-  premium: "Premium"
+  choix: 'Choix Rédaction',
+  premium: '★ Premium',
+  budget: 'Budget',
+  new: 'Nouveau',
+  bestseller: 'Best-seller'
 };
-const label = labels[type] || type;
-const cls = `badge badge-${type}`;
+const displayLabel = label || labels[type] || type;
 ---
-<span class={cls}>{label}</span>
+<span class={`badge badge-${type}`}>{displayLabel}</span>
